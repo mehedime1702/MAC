@@ -7,34 +7,23 @@
     <!-- Tailwind + Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- custom config override for deeper blue & transitions -->
     <style>
-        /* custom theme extensions */
         :root {
             --primary-deep: #0f2b5c;
             --primary-bright: #1e4a8a;
             --gold-accent: #fbbf24;
         }
-        .bg-primary {
-            background-color: var(--primary-deep);
-        }
-        .text-primary {
-            color: var(--primary-deep);
-        }
-        .border-primary {
-            border-color: var(--primary-deep);
-        }
-        .hover\:bg-primary-dark:hover {
-            background-color: #0a1e3e;
-        }
-        /* Sidebar overlay + drawer animation */
+        .bg-primary { background-color: var(--primary-deep); }
+        .text-primary { color: var(--primary-deep); }
+        .border-primary { border-color: var(--primary-deep); }
+        .hover\:bg-primary-dark:hover { background-color: #0a1e3e; }
+        
+        /* Sidebar drawer animation */
         .sidebar-drawer {
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             transform: translateX(-100%);
         }
-        .sidebar-drawer.open {
-            transform: translateX(0);
-        }
+        .sidebar-drawer.open { transform: translateX(0); }
         .backdrop-overlay {
             transition: opacity 0.25s ease;
             opacity: 0;
@@ -44,28 +33,24 @@
             opacity: 1;
             pointer-events: auto;
         }
-        /* dropdown for desktop (right side) but we enhance left sidebar for mobile/tablet + extra menu */
         .dropdown:hover .dropdown-menu { display: block; }
         .dropdown-menu { display: none; }
-        /* modal transitions */
         .modal {
             transition: opacity 0.2s ease;
         }
-        body.modal-open {
-            overflow: hidden;
-        }
-        .logo-golden-glow {
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-        }
+        body.modal-open { overflow: hidden; }
         .card-hover:hover {
             transform: translateY(-4px);
             transition: all 0.2s ease;
         }
+        /* Ensure modals are properly centered */
+        .modal { display: none; }
+        .modal.flex { display: flex; }
     </style>
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-indigo-50/30 text-slate-800 font-sans antialiased">
 
-    <!-- ========== SIDEBAR (LEFT DROPDOWN/MENU DRAWER) ========== -->
+    <!-- ========== SIDEBAR (LEFT DRAWER) ========== -->
     <div id="sidebarOverlay" class="backdrop-overlay fixed inset-0 bg-black/50 z-40" onclick="closeSidebar()"></div>
     <div id="mobileSidebar" class="sidebar-drawer fixed top-0 left-0 z-50 w-80 h-full bg-white shadow-2xl flex flex-col overflow-y-auto border-r border-slate-200">
         <div class="p-6 border-b border-slate-100 flex justify-between items-center">
@@ -76,18 +61,16 @@
             <button onclick="closeSidebar()" class="text-slate-400 hover:text-slate-700 text-xl">&times;</button>
         </div>
         <div class="flex-1 py-6 px-5 space-y-7">
-            <!-- main left nav items with nested dropdown style inside drawer -->
             <div>
                 <div class="flex items-center justify-between text-slate-700 font-semibold text-lg mb-2 pb-1 border-b border-slate-100">
                     <span><i class="fa-regular fa-compass mr-3 text-primary"></i>Explore MAC</span>
                 </div>
                 <ul class="mt-3 space-y-3">
                     <li><a href="#" class="flex items-center gap-3 text-slate-600 hover:text-primary transition py-1"><i class="fa-solid fa-house-chimney w-5"></i>Home</a></li>
-                    <li><a href="#about" class="flex items-center gap-3 text-slate-600 hover:text-primary transition py-1"><i class="fa-regular fa-eye w-5"></i>Vision & Motto</a></li>
+                    <li><a href="#about" class="flex items-center gap-3 text-slate-600 hover:text-primary transition py-1"><i class="fa-regular fa-eye w-5"></i>Founder Massage</a></li>
                     <li><a href="#why-mac" class="flex items-center gap-3 text-slate-600 hover:text-primary transition py-1"><i class="fa-regular fa-lightbulb w-5"></i>Why MAC?</a></li>
                 </ul>
             </div>
-            <!-- classes mega dropdown inside sidebar -->
             <div>
                 <div class="text-slate-700 font-semibold text-lg mb-3 pb-1 border-b border-slate-100">
                     <i class="fa-solid fa-chalkboard-user mr-2 text-primary"></i> Academic Streams
@@ -96,13 +79,13 @@
                     <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-layer-group mr-2 text-primary"></i>Class 3-5 (Primary)</a>
                     <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-chart-line mr-2 text-primary"></i>Class 6-8 (Junior High)</a>
                     <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-book-open mr-2 text-primary"></i>Class 9-10 (SSC)</a>
-                    <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-graduation-cap mr-2 text-primary"></i>Class 11 (HSC / College)</a>
+                    <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-graduation-cap mr-2 text-primary"></i>Class 11-12 (HSC)</a>
+<a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-graduation-cap mr-2 text-primary"></i>Admission</a>
                     <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-flask mr-2 text-primary"></i>STEM Practical Labs</a>
                 </div>
             </div>
-            <!-- quick resources -->
             <div>
-                <div class="font-semibold text-slate-700 text-lg mb-3">📘 Quick Resources</div>
+                <div class="font-semibold text-slate-700 text-lg mb-3">Quick Resources</div>
                 <ul class="space-y-2 text-slate-500">
                     <li><a href="#" class="hover:text-primary flex items-center gap-2"><i class="fa-regular fa-calendar"></i> Academic Calendar</a></li>
                     <li><a href="#" class="hover:text-primary flex items-center gap-2"><i class="fa-regular fa-file-pdf"></i> Syllabus Mapping</a></li>
@@ -119,19 +102,16 @@
         </div>
     </div>
 
-    <!-- Main Navigation Bar (aligned with unique logo + left menu button) -->
+    <!-- Main Navigation -->
     <nav class="bg-white/90 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-40 py-3 shadow-sm">
         <div class="container mx-auto px-5 flex justify-between items-center">
-            <!-- left side: hamburger + custom logo -->
             <div class="flex items-center gap-4">
                 <button onclick="openSidebar()" class="text-primary text-2xl hover:scale-105 transition p-1 rounded-full focus:outline-none md:hidden block">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <!-- desktop sidebar trigger (optional) for large screens but we keep visible for consistency -->
                 <button onclick="openSidebar()" class="hidden md:flex items-center gap-2 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-full text-primary font-medium transition">
                     <i class="fa-solid fa-bars-staggered"></i> <span>Menu</span>
                 </button>
-                <!-- UNIQUE LOGO : modern badge + wordmark (gradient style) -->
                 <div class="flex items-center gap-2 group cursor-pointer">
                     <div class="relative">
                         <div class="bg-gradient-to-br from-[#0f2b5c] to-[#1e4a8a] text-white w-11 h-11 flex items-center justify-center rounded-2xl shadow-lg transform -rotate-3 transition group-hover:rotate-0">
@@ -145,8 +125,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- desktop nav (right side) -->
             <div class="hidden md:flex items-center space-x-7 font-medium text-slate-600">
                 <a href="#" class="hover:text-primary transition">Home</a>
                 <div class="relative dropdown">
@@ -155,133 +133,119 @@
                         <i class="fa-solid fa-chevron-down text-[11px]"></i>
                     </button>
                     <div class="dropdown-menu absolute left-0 bg-white border border-slate-200 shadow-xl rounded-2xl w-56 overflow-hidden z-50 top-full mt-1">
-                        <a href="#" class="block px-5 py-3 hover:bg-indigo-50 text-sm border-b border-slate-100">📘 Class 3-5 (Foundation)</a>
-                        <a href="#" class="block px-5 py-3 hover:bg-indigo-50 text-sm border-b border-slate-100">📙 Class 6-8 (Discovery)</a>
-                        <a href="#" class="block px-5 py-3 hover:bg-indigo-50 text-sm border-b border-slate-100">📚 Class 9-10 (SSC Elite)</a>
-                        <a href="#" class="block px-5 py-3 hover:bg-indigo-50 text-sm">🎓 Class 11 (HSC Horizon)</a>
+                       <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-layer-group mr-2 text-primary"></i>Class 3-5 (Primary)</a>
+                    <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-chart-line mr-2 text-primary"></i>Class 6-8 (Junior High)</a>
+                    <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-book-open mr-2 text-primary"></i>Class 9-10 (SSC)</a>
+                    <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-graduation-cap mr-2 text-primary"></i>Class 11-12 (HSC)</a>
+<a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-graduation-cap mr-2 text-primary"></i>Admission</a>
+                    <a href="#" class="block px-4 py-2 rounded-xl bg-slate-50 hover:bg-primary/10 text-slate-700 font-medium transition"><i class="fa-solid fa-flask mr-2 text-primary"></i>STEM Practical Labs</a>
+
                     </div>
                 </div>
                 <a href="#why-mac" class="hover:text-primary">Why MAC</a>
                 <a href="https://wa.me/8801521243881" class="text-green-700 font-bold flex items-center gap-2 bg-green-50 px-4 py-1.5 rounded-full hover:bg-green-100 transition"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-                <button onclick="toggleModal('loginModal')" class="bg-slate-100 px-5 py-2 rounded-full text-primary hover:bg-slate-200 transition shadow-sm">Login</button>
+                <button onclick="toggleModal('loginModal')" class="bg-slate-100 px-5 py-2 rounded-full text-primary hover:bg-slate-200 transition shadow-sm">Student Login</button>
             </div>
-            <div class="md: hidden flex items-center gap-2">
+            <div class="md:hidden flex items-center gap-2">
                 <a href="https://wa.me/8801521243881" class="text-green-600 text-xl"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero area with better headline -->
-    <header class="container mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
-        <div class="md:w-1/2">
-            <div class="inline-block bg-amber-100 text-amber-800 rounded-full px-4 py-1 text-sm font-bold mb-5 shadow-sm"><i class="fa-regular fa-star-of-life mr-1"></i> Mehedi Academic Care</div>
-            <h1 class="text-5xl md:text-7xl font-black leading-tight tracking-tight text-slate-900 mb-6">
-                Beyond Rote,<br> 
-                <span class="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">Logical Mastery.</span>
-            </h1>
-            <p class="text-slate-500 text-lg mb-8 leading-relaxed max-w-xl">
-                "We teach the why behind every equation." Personalized academic coaching for Class 3–11, powered by analytical frameworks & conceptual clarity.
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <button onclick="toggleModal('admitModal')" class="bg-primary text-white px-8 py-4 rounded-2xl font-extrabold shadow-xl shadow-blue-200 hover:shadow-blue-300 transition hover:scale-[1.02] flex items-center gap-2"><i class="fa-regular fa-paper-plane"></i> Secure Admission</button>
-                <button onclick="openSidebar()" class="border-2 border-primary/30 text-primary px-7 py-4 rounded-2xl font-bold hover:bg-primary/5 transition flex items-center gap-2"><i class="fa-solid fa-grip-lines"></i> Explore Programs</button>
+    <!-- Main Public Homepage Content -->
+    <main id="publicHomepageView" class="block w-full">
+        <header class="container mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <div class="inline-block bg-amber-100 text-amber-800 rounded-full px-4 py-1 text-sm font-bold mb-5 shadow-sm"><i class="fa-regular fa-star-of-life mr-1"></i>ADMISSIONS OPEN 2026</div>
+                <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-slate-600 mb-6">
+                    YOUR FUTURE IS BEING BUILT<br> 
+                    <span class="bg-gradient-to-r from-primary to-blue-600 bg-clip-text">RIGHT HERE</span>
+                </h1>
+                <p class="text-slate-500 text-lg mb-8 leading-relaxed max-w-xl">
+                    "We teach the why behind every equation." Personalized academic coaching for Class 3–11, powered by analytical frameworks & conceptual clarity.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="toggleModal('admitModal')" class="bg-primary text-white px-8 py-4 rounded-2xl font-extrabold shadow-xl shadow-blue-200 hover:shadow-blue-300 transition hover:scale-[1.02] flex items-center gap-2"><i class="fa-regular fa-paper-plane"></i> Apply Here</button>
+                    <button onclick="openSidebar()" class="border-2 border-primary/30 text-primary px-7 py-4 rounded-2xl font-bold hover:bg-primary/5 transition flex items-center gap-2"><i class="fa-solid fa-grip-lines"></i> Explore Programs</button>
+                </div>
             </div>
-        </div>
-        <div class="md:w-1/2">
-            <div class="relative">
-                <div class="absolute -top-6 -left-6 w-32 h-32 bg-amber-200/60 rounded-full blur-3xl -z-0"></div>
-                <img src="https://lh3.googleusercontent.com/d/1t54aEZ-b2PgsJlkGbPDYhSN2FliLHsaY" class="rounded-3xl shadow-2xl border-4 border-white object-cover w-full h-auto" alt="MAC Learning Environment">
-    
+            <div class="md:w-1/2">
+                <div class="relative">
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-amber-200/60 rounded-full blur-3xl -z-0"></div>
+                    <img src="https://lh3.googleusercontent.com/d/1t54aEZ-b2PgsJlkGbPDYhSN2FliLHsaY" class="rounded-3xl shadow-2xl border-4 border-white object-cover w-full h-auto" alt="MAC Learning Environment" onerror="this.src='https://placehold.co/600x400?text=Learning+Zone'">
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    
-<section id="about" class="bg-white py-20 border-y border-slate-100">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row items-center gap-12 max-w-6xl mx-auto">
-                
-                <div class="w-full lg:w-2/5 flex flex-col items-center text-center">
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-tr from-primary to-blue-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
-                        
-                        <div class="relative bg-white p-3 rounded-3xl shadow-xl">
-                            <img src="https://lh3.googleusercontent.com/d/11NYFY3Yftba6f5w3sXNs9-P8a3WYO3Dk" 
-                                 alt="Md. Mehedi Hasan - Founder of MAC" 
-                                 class="rounded-2xl object-cover w-72 h-96 lg:w-80 lg:h-[420px] bg-slate-100"
-                                 onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60'; console.warn('founder.jpg not found, loading fallback placeholder image.');">
+        <section id="about" class="bg-white py-20 border-y border-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-12 max-w-6xl mx-auto">
+                    <div class="w-full lg:w-2/5 flex flex-col items-center text-center">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-tr from-primary to-blue-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
+                            <div class="relative bg-white p-3 rounded-3xl shadow-xl">
+                                <img src="https://lh3.googleusercontent.com/d/11NYFY3Yftba6f5w3sXNs9-P8a3WYO3Dk" 
+                                     alt="Md. Mehedi Hasan - Founder of MAC" 
+                                     class="rounded-2xl object-cover w-72 h-96 lg:w-80 lg:h-[420px] bg-slate-100"
+                                     onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60';">
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-black text-primary mt-6 mb-1">Md. Mehedi Hasan</h3>
+                        <p class="text-amber-600 font-bold uppercase text-xs tracking-wider mb-2">Founder & Lead Instructor</p>
+                        <div class="inline-flex items-center gap-2 bg-slate-50 border border-slate-200/60 px-4 py-1.5 rounded-full text-sm text-slate-600 font-medium shadow-sm">
+                            <i class="fa-solid fa-graduation-cap text-primary"></i>
+                            <span>BSc in Mechanical Engineering, <strong>RUET</strong></span>
                         </div>
                     </div>
-                    
-                    <h3 class="text-2xl font-black text-primary mt-6 mb-1">Md. Mehedi Hasan</h3>
-                    <p class="text-amber-600 font-bold uppercase text-xs tracking-wider mb-2">Founder & Lead Instructor</p>
-                    <div class="inline-flex items-center gap-2 bg-slate-50 border border-slate-200/60 px-4 py-1.5 rounded-full text-sm text-slate-600 font-medium shadow-sm">
-                        <i class="fa-solid fa-graduation-cap text-primary"></i>
-                        <span>BSc in Mechanical Engineering, <strong>RUET</strong></span>
+                    <div class="w-full lg:w-3/5 relative">
+                        <div class="absolute -top-10 -left-6 text-slate-100 text-8xl font-serif select-none pointer-events-none">“</div>
+                        <span class="bg-primary/10 text-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">A Message From Our Founder</span>
+                        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900 mt-3 mb-6">
+                            Shaping Futures Through <br>
+                            <span class="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">Conceptual Clarity & Logic.</span>
+                        </h2>
+                        <div class="text-slate-600 text-base md:text-lg leading-relaxed space-y-4 font-normal">
+                            <p>Welcome to <strong>Mehedi Academic Care (MAC)</strong>. Over the years, I have observed a worrying trend in our conventional tuition culture—students are often forced into robotic memorization rather than discovering the actual inner workings of a concept. We are here to explicitly break that cycle.</p>
+                            <p class="border-l-4 border-amber-400 pl-4 my-4 italic text-slate-700 bg-amber-50/40 py-2 pr-2 rounded-r-xl">"At MAC, we don't just ask students to memorize equations; we teach them exactly why those equations exist and how they connect to reality."</p>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+                            <a href="https://wa.me/8801521243881" target="_blank" class="text-sm font-bold text-primary hover:text-blue-800 transition flex items-center gap-1.5">
+                                <span>Connect Directly</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="w-full lg:w-3/5 relative">
-                    <div class="absolute -top-10 -left-6 text-slate-100 text-8xl font-serif select-none pointer-events-none">“</div>
-                    
-                    <span class="bg-primary/10 text-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">A Message From Our Founder</span>
-                    <h2 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900 mt-3 mb-6">
-                        Shaping Futures Through <br>
-                        <span class="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">Conceptual Clarity & Logic.</span>
-                    </h2>
-                    
-                    <div class="text-slate-600 text-base md:text-lg leading-relaxed space-y-4 font-normal">
-                        <p>
-                            Welcome to <strong>Mehedi Academic Care (MAC)</strong>. Over the years, I have observed a worrying trend in our conventional tuition culture—students are often forced into robotic memorization rather than discovering the actual inner workings of a concept. We are here to explicitly break that cycle.
-                        </p>
-                        <p class="border-l-4 border-amber-400 pl-4 my-4 italic text-slate-700 bg-amber-50/40 py-2 pr-2 rounded-r-xl">
-                            "At MAC, we don't just ask students to memorize equations; we teach them exactly why those equations exist and how they connect to reality."
-                        </p>
-                      
-                    </div>
-                    
-                    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
-                       
-                        <a href="https://wa.me/8801521243881" target="_blank" class="text-sm font-bold text-primary hover:text-blue-800 transition flex items-center gap-1.5">
-                            <span>Connect Directly</span> <i class="fa-solid fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
-                    
+        <section id="why-mac" class="py-20 px-6 container mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-bold">Core Differentiator</span>
+                <h2 class="text-4xl md:text-5xl font-black mt-4">Why Choose <span class="text-primary">MAC</span> ?</h2>
+                <p class="text-slate-500 mt-3 text-lg">Logic overload — Small batches, real-world examples, and personal mentorship.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 card-hover transition">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-primary text-2xl mb-4"><i class="fa-solid fa-microchip"></i></div>
+                    <h4 class="font-black text-xl mb-2">Engineer's Pedagogy</h4>
+                    <p class="text-slate-500">Problem-solving frameworks derived from engineering thinking.</p>
                 </div>
-
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 card-hover transition">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-primary text-2xl mb-4"><i class="fa-regular fa-clock"></i></div>
+                    <h4 class="font-black text-xl mb-2">Flexible Pathways</h4>
+                    <p class="text-slate-500">Weekend crash courses, regular weekly care, and exam-oriented intensive workshops (3-11).</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 card-hover transition">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-2xl mb-4"><i class="fa-solid fa-chart-line"></i></div>
+                    <h4 class="font-black text-xl mb-2">Performance Analytics</h4>
+                    <p class="text-slate-500">Monthly progress reports with deep insights for parents; every student gets a MAC-Code portal.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Why MAC highlight section (extra suggestion) -->
-    <section id="why-mac" class="py-20 px-6 container mx-auto">
-        <div class="text-center max-w-3xl mx-auto mb-14">
-            <span class="bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-bold">Core Differentiator</span>
-            <h2 class="text-4xl md:text-5xl font-black mt-4">Why Choose <span class="text-primary">MAC</span> ?</h2>
-            <p class="text-slate-500 mt-3 text-lg">Logic overload — Small batches, real-world examples, and personal mentorship.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 card-hover transition">
-                <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-primary text-2xl mb-4"><i class="fa-solid fa-microchip"></i></div>
-                <h4 class="font-black text-xl mb-2">Engineer's Pedagogy</h4>
-                <p class="text-slate-500">Problem-solving frameworks derived from engineering thinking.</p>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 card-hover transition">
-                <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-primary text-2xl mb-4"><i class="fa-regular fa-clock"></i></div>
-                <h4 class="font-black text-xl mb-2">Flexible Pathways</h4>
-                <p class="text-slate-500">Weekend crash courses, regular weekly care, and exam-oriented intensive workshops (3-11).</p>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 card-hover transition">
-               <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-2xl mb-4"><i class="fa-solid fa-chart-line"></i></div>
-
-                <h4 class="font-black text-xl mb-2">Performance Analytics</h4>
-                <p class="text-slate-500">Monthly progress reports with deep insights for parents; every student gets a MAC-Code portal.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== MODAL: ADMIT FORM ========== -->
-    <div id="admitModal" class="modal fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <!-- MODAL: ADMIT FORM -->
+    <div id="admitModal" class="modal fixed inset-0 z-[100] items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleModal('admitModal')"></div>
         <div class="bg-white relative w-full max-w-lg rounded-3xl p-8 shadow-2xl overflow-y-auto max-h-[90vh]">
             <div id="admitFormContainer">
@@ -308,27 +272,26 @@
         </div>
     </div>
 
-    <!-- MODAL: Student Login (mock demo) -->
-    <div id="loginModal" class="modal fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <!-- MODAL: Student Login (opens dashboard in NEW WINDOW) -->
+    <div id="loginModal" class="modal fixed inset-0 z-[100] items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleModal('loginModal')"></div>
         <div class="bg-white relative w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl">
             <i class="fa-regular fa-id-card text-5xl text-primary/70 mb-3"></i>
             <h2 class="text-2xl font-black">MAC Student Portal</h2>
             <p class="text-slate-400 text-sm mb-5">Enter the unique MAC Code (given during enrollment)</p>
             <input id="studentMacCode" type="text" placeholder="e.g. MAC-9521" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl text-center font-mono tracking-wider focus:border-primary outline-none mb-4">
-            <button onclick="verifyMacMock()" class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold hover:bg-primary transition">Access Dashboard</button>
+            <button onclick="verifyAndOpenDashboardWindow()" class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold hover:bg-primary transition">Access Dashboard</button>
             <p id="loginMockMsg" class="text-xs text-primary mt-3 font-medium"></p>
             <button onclick="toggleModal('loginModal')" class="mt-4 text-slate-400 text-sm underline">Cancel</button>
         </div>
     </div>
 
-    <!-- Enhanced FOOTER with address + social + random extra -->
+    <!-- Enhanced FOOTER -->
     <footer class="bg-slate-950 text-white pt-20 pb-8 px-6 mt-16 border-t border-slate-800">
-     
-<div class="container mx-auto grid md:grid-cols-4 gap-12 pb-16 border-b border-slate-800/80">
+        <div class="container mx-auto grid md:grid-cols-4 gap-12 pb-16 border-b border-slate-800/80">
             <div>
                 <div class="flex items-center gap-1 mb-5">
-                      <img src="https://lh3.googleusercontent.com/d/1u0vGE_NygrG042_yGav_UeflXBYmTGT5">
+                    <img src="https://lh3.googleusercontent.com/d/1u0vGE_NygrG042_yGav_UeflXBYmTGT5" class="h-12" alt="MAC Logo" onerror="this.style.display='none'">
                 </div>
                 <div class="flex gap-4 mt-6">
                     <a href="#" class="bg-white/5 w-9 h-9 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fa-brands fa-facebook-f"></i></a>
@@ -341,13 +304,7 @@
                 <address class="not-italic text-slate-400 text-sm space-y-1">
                     <p>Purbanchal Garden-1, Uttar Badda</p>
                     <p>Dhaka-1229</p>
-                 
-<a href="https://maps.app.goo.gl/zWwvEt2WEWapbuBv9" 
-   target="_blank" 
-   class="inline-flex items-center gap-2 bg-blue-50 text-primary px-4 py-2 rounded-xl font-medium hover:bg-blue-100 transition">
-    <i class="fa-solid fa-map-location-dot"></i>
-    <span>Get location</span>
-</a>
+                    <a href="https://maps.app.goo.gl/zWwvEt2WEWapbuBv9" target="_blank" class="inline-flex items-center gap-2 bg-blue-50 text-primary px-4 py-2 rounded-xl font-medium hover:bg-blue-100 transition mt-2"><i class="fa-solid fa-map-location-dot"></i><span>Get location</span></a>
                     <p class="mt-3"><i class="fa-regular fa-envelope mr-2"></i> hello@mac-edu.com.bd</p>
                 </address>
             </div>
@@ -357,7 +314,6 @@
                     <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-regular fa-circle-right text-xs"></i>Home</a></li>
                     <li><a href="#why-mac" class="hover:text-white transition flex items-center gap-2"><i class="fa-regular fa-circle-right text-xs"></i>Our Uniqueness</a></li>
                     <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-regular fa-circle-right text-xs"></i>Admission Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-regular fa-circle-right text-xs"></i>MAC Codes & Portal</a></li>
                 </ul>
             </div>
             <div>
@@ -375,162 +331,188 @@
         </div>
     </footer>
 
-   <script>
-    // REPLACE THIS URL WITH YOUR ACTUAL GOOGLE APPS SCRIPT WEB APP URL
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgWEq3ciA5Os3iXLhg_5VPDOyYkcO0kvKG8JCNDzkeW9wgDNnq5Zld2d1BJkupIporSQ/exec";
-    
-    // Sidebar toggle functions
-    function openSidebar() {
-        document.getElementById('mobileSidebar').classList.add('open');
-        document.getElementById('sidebarOverlay').classList.add('active');
-        document.body.classList.add('modal-open');
-    }
-    
-    function closeSidebar() {
-        document.getElementById('mobileSidebar').classList.remove('open');
-        document.getElementById('sidebarOverlay').classList.remove('active');
-        document.body.classList.remove('modal-open');
-    }
-    
-    // Modal toggles
-    function toggleModal(id) {
-        const modal = document.getElementById(id);
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQLcMEVQp1uCFFojvM6X7jo9iBATIoIjTJi4dLWhlxHclT7kTutq3LiDhXOfoq1CFuhw/exec";
+        let dashboardWindowRef = null;
+
+        // Sidebar and modal controls
+        function openSidebar() {
+            document.getElementById('mobileSidebar').classList.add('open');
+            document.getElementById('sidebarOverlay').classList.add('active');
             document.body.classList.add('modal-open');
-            if(id === 'admitModal') {
-                document.getElementById('admitFormContainer').classList.remove('hidden');
-                document.getElementById('successViewAdmit').classList.add('hidden');
-            }
-            if(id === 'loginModal') {
-                document.getElementById('loginMockMsg').innerHTML = '';
-                document.getElementById('studentMacCode').value = '';
-            }
-        } else {
-            modal.classList.add('hidden');
-            modal.style.display = 'none';
+        }
+        function closeSidebar() {
+            document.getElementById('mobileSidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('active');
             document.body.classList.remove('modal-open');
         }
-    }
-    
-    // ACTUAL Google Sheets submission function
-    async function submitAdmission() {
-        const name = document.getElementById('admitName').value.trim();
-        const phone = document.getElementById('admitPhone').value.trim();
-        const cls = document.getElementById('admitClass').value;
-        
-        // Validation
-        if(!name) {
-            alert("❌ Please enter student's full name");
-            return;
-        }
-        if(!phone) {
-            alert("❌ Please enter a valid mobile number");
-            return;
-        }
-        if(phone.length < 10) {
-            alert("❌ Please enter a complete phone number (11 digits recommended)");
-            return;
-        }
-        
-        const submitBtn = document.querySelector('#admitFormContainer button');
-        const originalText = submitBtn.innerText;
-        
-        try {
-            // Disable button and show loading
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
-            submitBtn.disabled = true;
-            
-            // Prepare data payload matching your Apps Script object structure
-            const payload = {
-                name: name,
-                phone: phone,
-                class: cls
-            };
-            
-            // Send to Google Apps Script Web App without triggering standard CORS preflights
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Crucial to prevent standard preflight OPTIONS blockages
-                headers: {
-                    // Changing or omitting this forces a text payload processing step
-                    'Content-Type': 'text/plain;charset=utf-8', 
-                },
-                body: JSON.stringify(payload)
-            });
-            
-            // NOTE: With 'no-cors', response.ok will register as false, and response.status is 0.
-            // This is completely expected behavior from Google's redirect proxy. 
-            // If the code hits this block without catching an error, the row was recorded!
-            
-            // Show success view
-            document.getElementById('admitFormContainer').classList.add('hidden');
-            document.getElementById('successViewAdmit').classList.remove('hidden');
-            
-            // Clear form fields
-            document.getElementById('admitName').value = '';
-            document.getElementById('admitPhone').value = '';
-            
-        } catch (error) {
-            console.error("Submission error:", error);
-            alert("⚠️ Unable to submit. Please check your internet connection or contact support.\n\nError: " + error.message);
-        } finally {
-            // Reset button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-    
-    // Mock login verification (can be upgraded to real verification later)
-    function verifyMacMock() {
-        const code = document.getElementById('studentMacCode').value.trim();
-        const msgDiv = document.getElementById('loginMockMsg');
-        
-        if(!code) { 
-            msgDiv.innerHTML = "🔐 Please enter your MAC-Code (format: MAC-XXXX)";
-            msgDiv.style.color = "#e67e22";
-            return; 
-        }
-        
-        msgDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying credentials...';
-        msgDiv.style.color = "#1e3a8a";
-        
-        setTimeout(() => {
-            if(code.toUpperCase().startsWith('MAC-')) {
-                msgDiv.innerHTML = '✅ Welcome back! Full portal access coming soon.';
-                msgDiv.style.color = "#10b981";
-                // You can redirect or show more info here
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.classList.add('modal-open');
+                if(id === 'admitModal') {
+                    document.getElementById('admitFormContainer').classList.remove('hidden');
+                    document.getElementById('successViewAdmit').classList.add('hidden');
+                }
+                if(id === 'loginModal') {
+                    document.getElementById('loginMockMsg').innerHTML = '';
+                    document.getElementById('studentMacCode').value = '';
+                }
             } else {
-                msgDiv.innerHTML = '❌ Invalid MAC Code format. Example: MAC-2026';
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.classList.remove('modal-open');
+            }
+        }
+
+        // Admission submission (kept functional)
+        async function submitAdmission() {
+            const name = document.getElementById('admitName').value.trim();
+            const phone = document.getElementById('admitPhone').value.trim();
+            const cls = document.getElementById('admitClass').value;
+            if(!name) { alert("❌ Please enter student's full name"); return; }
+            if(!phone || phone.length < 10) { alert("❌ Please enter a valid mobile number"); return; }
+            const submitBtn = document.querySelector('#admitFormContainer button');
+            const originalText = submitBtn.innerText;
+            try {
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Registering Profile...';
+                submitBtn.disabled = true;
+                const payload = { name: name, phone: phone, class: cls };
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                if(result.success) {
+                    document.getElementById('admitFormContainer').classList.add('hidden');
+                    document.getElementById('successViewAdmit').classList.remove('hidden');
+                    alert(`🎉 Admission Confirmed!\nMAC-Code: ${result.macCode}`);
+                    // Open dashboard directly in new window after admission
+                    openDashboardWindow(result.macCode, payload.name, payload.class);
+                } else {
+                    alert("❌ Error: " + result.error);
+                }
+            } catch (error) {
+                alert("⚠️ Network error. Please try again.");
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // NEW: Verify credentials and open dashboard in SEPARATE WINDOW
+        async function verifyAndOpenDashboardWindow() {
+            const code = document.getElementById('studentMacCode').value.trim();
+            const msgDiv = document.getElementById('loginMockMsg');
+            if(!code) { 
+                msgDiv.innerHTML = "🔐 Please enter your MAC-Code or Registered Phone Number";
+                msgDiv.style.color = "#e67e22";
+                return; 
+            }
+            msgDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking secure database records...';
+            msgDiv.style.color = "#1e3a8a";
+            try {
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?code=${encodeURIComponent(code)}`);
+                const result = await response.json();
+                if (result.success && result.authorized) {
+                    msgDiv.innerHTML = '✅ Authorization successful! Opening dashboard in new window...';
+                    msgDiv.style.color = "#10b981";
+                    setTimeout(() => {
+                        msgDiv.innerHTML = '';
+                        toggleModal('loginModal');
+                        openDashboardWindow(result.student.macCode, result.student.name, result.student.class);
+                    }, 600);
+                } else {
+                    msgDiv.innerHTML = `❌ ${result.message || 'Invalid MAC-Code or credentials.'}`;
+                    msgDiv.style.color = "#ef4444";
+                }
+            } catch (error) {
+                console.error(error);
+                msgDiv.innerHTML = '⚠️ Database connection issue. Please contact support.';
                 msgDiv.style.color = "#ef4444";
             }
-        }, 800);
-    }
-    
-    // Close modals when clicking outside
-    window.onclick = function(event) {
-        if(event.target.classList && event.target.classList.contains('backdrop-overlay')) {
-            closeSidebar();
         }
-        // Close modal if clicking on backdrop
-        if(event.target.classList && event.target.classList.contains('modal') && event.target === event.target.querySelector('.absolute')) {
-            const modal = event.target.closest('.modal');
-            if(modal) toggleModal(modal.id);
+
+        // Function that opens a fully functional dashboard in a separate browser window/tab
+        function openDashboardWindow(macCode, studentName, studentClass) {
+            // Build dashboard HTML content as a complete standalone document
+            const dashboardHTML = generateDashboardHTML(macCode, studentName, studentClass);
+            const blob = new Blob([dashboardHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const newWindow = window.open(url, '_blank');
+            if (newWindow) {
+                dashboardWindowRef = newWindow;
+                // Cleanup object URL after a delay
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            } else {
+                alert("Popup blocked! Please allow popups for this site to open the student dashboard.");
+            }
         }
-    };
-    
-    // Initialize modals on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('admitModal').classList.add('hidden');
-        document.getElementById('loginModal').classList.add('hidden');
-        document.getElementById('admitModal').style.display = 'none';
-        document.getElementById('loginModal').style.display = 'none';
-        
-        // Check if script URL is configured
-        if(GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycby1RiPZQidSOwMedvxl6YwsK210pd7n8dQqjie-e1_nCvnShJsNQF5eWg5U6l7GLXE0/exec") {
-            console.warn("⚠️ Please update GOOGLE_SCRIPT_URL with your actual Apps Script Web App URL");
+
+        // Generates the standalone dashboard HTML (mirror of the previous dashboard design but isolated)
+        function generateDashboardHTML(macCode, studentName, studentClass) {
+            return `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>MAC Student Portal | ${studentName}</title>
+                <script src="https://cdn.tailwindcss.com"><\/script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+                <style>:root{--primary-deep:#0f2b5c;}</style>
+            </head>
+            <body class="bg-slate-50 text-slate-800 font-sans antialiased">
+                <nav class="bg-white border-b border-slate-200 sticky top-0 z-40 py-3 px-5 shadow-sm">
+                    <div class="container mx-auto flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="bg-gradient-to-br from-[#0f2b5c] to-[#1e4a8a] text-white w-9 h-9 flex items-center justify-center rounded-xl shadow"><i class="fa-solid fa-brain text-lg"><\/i></div>
+                            <div class="flex flex-col leading-tight"><span class="text-md font-black tracking-tight text-[#0f2b5c]">MAC PORTAL</span><span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Student Workspace</span></div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex flex-col text-right leading-tight"><span class="font-bold text-slate-800 text-sm">${escapeHtml(studentName)}</span><span class="text-xs font-semibold text-amber-600">${escapeHtml(studentClass)}</span></div>
+                            <button onclick="window.close()" class="text-slate-400 hover:text-red-500 text-lg transition p-1" title="Close Dashboard"><i class="fa-solid fa-xmark-circle"><\/i></button>
+                        </div>
+                    </div>
+                </nav>
+                <main class="container mx-auto px-4 py-8 flex-1">
+                    <div class="bg-gradient-to-r from-[#0f2b5c] to-[#1e4a8a] rounded-3xl p-6 md:p-8 text-white shadow-xl mb-8 relative overflow-hidden">
+                        <div class="absolute right-0 bottom-0 opacity-10 text-9xl font-black select-none pointer-events-none">MAC</div>
+                        <div class="relative z-10"><span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Academic Tracker Live</span>
+                        <h1 class="text-2xl md:text-4xl font-black mt-3">Welcome Back, <span class="text-amber-400">${escapeHtml(studentName.split(' ')[0])}</span>!</h1>
+                        <p class="text-indigo-100 text-sm md:text-base mt-1">"Logic over load." Track your module concept maps, assignment keys, and assessment records directly here.</p></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border flex items-center gap-4"><div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-id-card"><\/i></div><div><p class="text-xs font-semibold text-slate-400 uppercase">Access ID</p><h4 class="text-lg font-black text-slate-800 font-mono">${escapeHtml(macCode)}</h4></div></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border flex items-center gap-4"><div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-regular fa-calendar-check"><\/i></div><div><p class="text-xs font-semibold text-slate-400 uppercase">Account Status</p><h4 class="text-lg font-black text-slate-800">Verified Active</h4></div></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border flex items-center gap-4"><div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-chart-line"><\/i></div><div><p class="text-xs font-semibold text-slate-400 uppercase">Syllabus Progress</p><h4 class="text-lg font-black text-slate-800">Core Loop Stage 1</h4></div></div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-8"><div class="bg-white rounded-2xl border p-6 shadow-sm"><h3 class="font-black text-lg text-[#0f2b5c] flex items-center gap-2 mb-4"><i class="fa-regular fa-clock"><\/i> Upcoming Concept Loops</h3><div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl bg-slate-50 border"><div><div class="bg-[#0f2b5c]/10 text-[#0f2b5c] font-bold text-xs p-2 rounded-xl inline-block mb-2">PHYSICS</div><h5 class="font-bold text-slate-800">Vector Diagnostics & Kinematics</h5><p class="text-xs text-slate-400"><i class="fa-solid fa-user-tie"><\/i> RUET Engineering Faculty</p></div><span class="text-xs font-bold bg-amber-100 text-amber-800 px-3 py-1 rounded-full">04:30 PM - 06:00 PM</span></div></div></div>
+                        <div class="space-y-8"><div class="bg-white rounded-2xl border p-6 shadow-sm"><h3 class="font-black text-lg text-[#0f2b5c] flex items-center gap-2 mb-4"><i class="fa-regular fa-bell"><\/i> Notice Hub</h3><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl"><span class="text-[10px] uppercase font-extrabold text-amber-700">Latest</span><p class="text-xs font-semibold text-slate-700 mt-1">Diagnostic sheets recorded securely. Contact support for queries.</p></div></div><div class="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-2xl p-6"><h4 class="font-black text-md text-amber-400"><i class="fa-regular fa-comment-dots"><\/i> Student Helpline</h4><p class="text-slate-400 text-xs mt-1">Connect with administrator instantly via WhatsApp.</p><a href="https://wa.me/8801521243881" target="_blank" class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 transition text-white py-2.5 rounded-xl text-center text-xs font-bold flex items-center justify-center gap-1.5"><i class="fa-brands fa-whatsapp"><\/i> WhatsApp Support</a></div></div>
+                    </div>
+                </main>
+                <footer class="bg-slate-950 text-slate-500 text-xs text-center py-4 border-t mt-12"><p>© 2026 MEHEDI ACADEMIC CARE — Secure Dashboard Environment</p></footer>
+            <\/body><\/html>`;
         }
-    });
-</script></body>
+
+        function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+        // Global event handlers
+        window.onclick = function(event) {
+            if(event.target.classList && event.target.classList.contains('backdrop-overlay')) closeSidebar();
+            if(event.target.classList && event.target.classList.contains('modal') && event.target === event.target.querySelector('.absolute')) {
+                const modal = event.target.closest('.modal');
+                if(modal) toggleModal(modal.id);
+            }
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('admitModal').classList.add('hidden');
+            document.getElementById('loginModal').classList.add('hidden');
+        });
+    </script>
+</body>
 </html>
