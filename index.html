@@ -22,6 +22,9 @@
         .modal.flex { display: flex; }
         body.modal-open { overflow: hidden; }
         .card-hover:hover { transform: translateY(-4px); transition: all 0.2s ease; }
+        /* Loading spinner */
+        .spinner { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-indigo-50/30 text-slate-800 font-sans antialiased">
@@ -113,25 +116,30 @@
     <!-- ADMIT MODAL -->
     <div id="admitModal" class="modal fixed inset-0 z-[100] items-center justify-center p-4"><div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleModal('admitModal')"></div><div class="bg-white relative w-full max-w-lg rounded-3xl p-8 shadow-2xl overflow-y-auto max-h-[90vh]"><div id="admitFormContainer"><div class="flex justify-between items-center mb-2"><h2 class="text-2xl font-black text-primary">✨ STUDENTS INFORMATION</h2><button onclick="toggleModal('admitModal')" class="text-slate-400 text-2xl">&times;</button></div><p class="text-slate-500 mb-6">Academic coordinator will reach out within 24 hours.</p><div class="space-y-4"><input id="admitName" type="text" placeholder="Full name (Student)" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl outline-none focus:border-primary"><input id="admitPhone" type="tel" placeholder="Mobile Number (WhatsApp active)" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl outline-none focus:border-primary"><select id="admitClass" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl outline-none focus:border-primary"><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>HSC First Year</option><option>HSC 2nd Year</option><option>Admission Candidates</option></select><button onclick="submitAdmission()" class="w-full bg-primary text-white py-4 rounded-xl font-black text-lg shadow-lg hover:bg-blue-900 transition">CONFIRM</button></div></div><div id="successViewAdmit" class="hidden text-center py-10"><i class="fa-regular fa-circle-check text-7xl text-green-500 mb-4"></i><h3 class="text-2xl font-bold">🎉 Application Received!</h3><p class="text-slate-500 mt-2">Academic coordinator will contact you shortly. Welcome to logical learning.</p><button onclick="toggleModal('admitModal')" class="mt-6 text-primary font-semibold underline">Close</button></div></div></div>
 
-    <!-- LOGIN MODAL (Dashboard opens in NEW WINDOW) -->
+    <!-- LOGIN MODAL - Dashboard opens in NEW WINDOW with anti-popup-blocker strategy -->
     <div id="loginModal" class="modal fixed inset-0 z-[100] items-center justify-center p-4">
-
-<div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleModal('loginModal')"></div>
-
-<div class="bg-white relative w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl"><i class="fa-regular fa-id-card text-5xl text-primary/70 mb-3"></i>
-
-<h2 class="text-2xl font-black">MAC Student Portal</h2>
-
-<p class="text-slate-400 text-sm mb-5">Enter your MAC Code (Apply to get MAC CODE)</p><input id="studentMacCode" type="text" placeholder="e.g. MAC-9521" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl text-center font-mono tracking-wider focus:border-primary outline-none mb-4"><button onclick="verifyAndOpenDashboardWindow()" class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold hover:bg-primary transition">Access Dashboard</button>
-
-<p id="loginMockMsg" class="text-xs text-primary mt-3 font-medium"></p><button onclick="toggleModal('loginModal')" class="mt-4 text-slate-400 text-sm underline">Cancel</button></div></div>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleModal('loginModal')"></div>
+        <div class="bg-white relative w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl">
+            <i class="fa-regular fa-id-card text-5xl text-primary/70 mb-3"></i>
+            <h2 class="text-2xl font-black">MAC Student Portal</h2>
+            <p class="text-slate-400 text-sm mb-5">Enter your MAC Code (Apply to get MAC CODE)</p>
+            <input id="studentMacCode" type="text" placeholder="e.g. MAC-9521" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl text-center font-mono tracking-wider focus:border-primary outline-none mb-4">
+            <button id="accessDashboardBtn" class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold hover:bg-primary transition">Access Dashboard</button>
+            <p id="loginMockMsg" class="text-xs text-primary mt-3 font-medium"></p>
+            <button onclick="toggleModal('loginModal')" class="mt-4 text-slate-400 text-sm underline">Cancel</button>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="bg-slate-900 text-white pt-12 pb-6 px-6 mt-16 border-t border-slate-200"><div class="container mx-auto grid md:grid-cols-4 gap-6 pb-8 border-b border-slate-200"><div class="flex flex-col items-center"><div class="flex items-center justify-center mb-2"><img src="https://lh3.googleusercontent.com/d/1u0vGE_NygrG042_yGav_UeflXBYmTGT5" class="h-12" alt="MAC Logo" onerror="this.style.display='none'"></div><div class="flex gap-4 mt-2"><a href="#" class="bg-slate-200/50 w-9 h-9 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a><a href="https://wa.me/8801521243881" class="bg-slate-200/50 w-9 h-9 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white transition"><i class="fa-brands fa-whatsapp"></i></a><a href="#" class="bg-slate-200/50 w-9 h-9 rounded-full flex items-center justify-center hover:bg-sky-500 hover:text-white transition"><i class="fa-brands fa-linkedin-in"></i></a></div></div><div><h5 class="font-bold text-lg mb-4 flex items-center justify-center gap-2"><i class="fa-regular fa-building"></i> Address</h5><address class="not-italic text-slate-400 text-sm space-y-1 text-center"><p>Purbanchal Garden-1, Uttar Badda</p><p>Dhaka-1229</p><a href="https://maps.app.goo.gl/zWwvEt2WEWapbuBv9" target="_blank" class="inline-flex items-center gap-2 bg-blue-50 text-center justify-center px-4 py-2 rounded-xl font-medium hover:bg-blue-100 transition mt-2"><i class="fa-solid fa-map-location-dot"></i><span>Get location</span></a></address></div><div><h5 class="font-bold text-lg mb-4 text-center">Quick Navigation</h5><ul class="space-y-2 text-slate-400 text-sm text-center"><li><a href="#" class="hover:text-white transition flex items-center gap-2 justify-center"><i class="fa-regular fa-circle-right text-xs"></i>Home</a></li><li><a href="#why-mac" class="hover:text-white transition flex items-center gap-2 justify-center"><i class="fa-regular fa-circle-right text-xs"></i>Our Uniqueness</a></li><li><a href="#" class="hover:text-white transition flex items-center gap-2 justify-center"><i class="fa-regular fa-circle-right text-xs"></i>Admission Policy</a></li></ul></div><div><h5 class="font-bold text-center justify-center mb-4">Office Hours</h5><div class="text-slate-400 text-sm space-y-2 text-center"><p><i class="fa-regular fa-clock mr-2"></i> Sat–Fri: 9:00AM – 10:00PM</p><div>📞 Hotline: 01521-243881</div></div></div></div><div class="container mx-auto text-center text-slate-500 text-sm pt-8 flex flex-col md:flex-row justify-between items-center gap-2"><span>&copy; 2026 MEHEDI ACADEMIC CARE — Built with logic & dedication.</span><span class="text-xs tracking-wider"><i class="fa-regular fa-registered"></i> Engineer-led institution</span></div></footer>
 
     <script>
-        // UPDATED Google Apps Script Web App URL (your new deployment)
+        // Google Apps Script Web App URL
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFZKSYfvx7Jxgl37Q2wiZmCId7Vb0vqufPtZBKQZVc8NsdHh_tILwxA5prfCvikIQsbg/exec";
+        
+        // Store window reference for popup (opened in user-initiated context)
+        let pendingDashboardWindow = null;
+        let pendingStudentData = null;
         
         // UI Helpers
         function openSidebar() { document.getElementById('mobileSidebar').classList.add('open'); document.getElementById('sidebarOverlay').classList.add('active'); document.body.classList.add('modal-open'); }
@@ -144,44 +152,45 @@
             } else { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.classList.remove('modal-open'); }
         }
         
-        // ESCAPE HTML helper
         function escapeHtml(str) { if(!str) return ''; return String(str).replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
         
-        // ============================================================
-        // CORE: OPEN DASHBOARD IN A SEPARATE BROWSER WINDOW (NEW TAB)
-        // ============================================================
-        function openDashboardInNewWindow(studentData) {
-            // studentData contains: name, class, macCode, attendance, examMark, progress, feedback, notice
+        // Generate the standalone dashboard HTML
+        function generateDashboardHTML(studentData) {
             const name = studentData.name || "Student";
             const className = studentData.class || "Not Assigned";
             const macCode = studentData.macCode || "MAC-XXXX";
             const attendance = studentData.attendance || "85%";
-            let examMark = studentData.examMark || "Pending";
+            const examMark = studentData.examMark || "Pending";
             const progress = studentData.progress || "0";
             const feedback = studentData.feedback || "Welcome to MAC! We focus on conceptual clarity.";
             const notice = studentData.notice || "Stay tuned for upcoming problem-solving sessions.";
             
-            // Generate beautiful standalone dashboard HTML
-            const dashboardHTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MAC Student Portal | ${escapeHtml(name)}</title><script src="https://cdn.tailwindcss.com"><\/script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><style>:root{--primary-deep:#0f2b5c;}body{background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 100%);}<\/style></head><body class="text-slate-800 font-sans antialiased"><nav class="bg-white/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-40 py-3 px-5 shadow-sm"><div class="container mx-auto flex justify-between items-center"><div class="flex items-center gap-2"><div class="bg-gradient-to-br from-[#0f2b5c] to-[#1e4a8a] text-white w-9 h-9 flex items-center justify-center rounded-xl shadow"><i class="fa-solid fa-brain text-lg"><\/i><\/div><div class="flex flex-col leading-tight"><span class="text-md font-black tracking-tight text-[#0f2b5c]">MAC PORTAL<\/span><span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Student Workspace<\/span><\/div><\/div><div class="flex items-center gap-4"><div class="flex flex-col text-right leading-tight"><span class="font-bold text-slate-800 text-sm">${escapeHtml(name)}<\/span><span class="text-xs font-semibold text-amber-600">${escapeHtml(className)}<\/span><\/div>
-
-<button onclick="window.close()" class="text-slate-400 hover:text-red-500 text-xl transition p-1" title="Close Dashboard"><span class="text-sm font-medium hidden md:inline">LOGOUT</span>
-<a href="https://mehedime1702.github.io/MAC/" class="text-slate-400 hover:text-indigo-600 text-lg transition p-1 inline-flex items-center gap-1" title="Home Page">
+            return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MAC Student Portal | ${escapeHtml(name)}</title><script src="https://cdn.tailwindcss.com"><\/script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><style>:root{--primary-deep:#0f2b5c;}body{background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 100%);}<\/style></head><body class="text-slate-800 font-sans antialiased"><nav class="bg-white/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-40 py-3 px-5 shadow-sm"><div class="container mx-auto flex justify-between items-center"><div class="flex items-center gap-2"><div class="bg-gradient-to-br from-[#0f2b5c] to-[#1e4a8a] text-white w-9 h-9 flex items-center justify-center rounded-xl shadow"><i class="fa-solid fa-brain text-lg"><\/i><\/div><div class="flex flex-col leading-tight"><span class="text-md font-black tracking-tight text-[#0f2b5c]">MAC PORTAL<\/span><span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Student Workspace<\/span><\/div><\/div><div class="flex items-center gap-4"><div class="flex flex-col text-right leading-tight"><span class="font-bold text-slate-800 text-sm">${escapeHtml(name)}<\/span><span class="text-xs font-semibold text-amber-600">${escapeHtml(className)}<\/span><\/div><button onclick="window.close()" class="text-slate-400 hover:text-red-500 text-xl transition p-1" title="Close Dashboard"><i class="fa-solid fa-xmark-circle"><\/i>
+<a href="https://mehedime1702.github.io/MAC/" class="text-slate-400 hover:text-indigo-600 text-lg transition p-1 inline-flex items-center gap-1" title="Back to Home Page">
     <i class="fa-solid fa-house-chimney"></i>
     <span class="text-sm font-medium hidden md:inline">Home</span>
 </a>
 
 
-<\/button><\/div><\/div><\/nav><main class="container mx-auto px-4 py-8 flex-1"><div class="bg-gradient-to-r from-[#0f2b5c] to-[#1e4a8a] rounded-3xl p-6 md:p-8 text-white shadow-xl mb-8 relative overflow-hidden"><div class="absolute right-0 bottom-0 opacity-10 text-9xl font-black select-none pointer-events-none">MAC<\/div><div class="relative z-10"><span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Academic Tracker Live<\/span><h1 class="text-2xl md:text-4xl font-black mt-3">Welcome Back, <span class="text-amber-400">${escapeHtml(name.split(' ')[0])}<\/span>!<\/h1><p class="text-indigo-100 text-sm md:text-base mt-1">"Logic over load." Track your module concept maps, assignment keys, and assessment records directly here.<\/p><\/div><\/div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center gap-4"><div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-id-card"><\/i><\/div><div><p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">MAC ID<\/p><h4 class="text-lg font-black text-slate-800 font-mono">${escapeHtml(macCode)}<\/h4><\/div><\/div><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center gap-4"><div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-regular fa-calendar-check"><\/i><\/div><div><p class="text-xs font-semibold text-slate-400 uppercase">Class Attendance<\/p><h4 class="text-2xl font-black text-slate-800">${escapeHtml(attendance)}<\/h4><\/div><\/div><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center gap-4"><div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-chart-line"><\/i><\/div><div><p class="text-xs font-semibold text-slate-400 uppercase">Latest Exam Score<\/p><h4 class="text-2xl font-black text-slate-800">${escapeHtml(examMark)}<\/h4><\/div><\/div><\/div><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 mb-8"><div class="flex justify-between items-center mb-3"><h4 class="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2"><i class="fa-solid fa-chart-line text-[#0f2b5c]"><\/i> Syllabus Progress Tracker<\/h4><span id="progPercent" class="text-sm font-black text-[#0f2b5c] bg-blue-50 px-3 py-1 rounded-full">${parseInt(progress) || 0}%<\/span><\/div><div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-blue-600 to-emerald-500 h-full rounded-full transition-all duration-1000" style="width: ${Math.min(100, Math.max(0, parseInt(progress) || 0))}%;"><\/div><\/div><p class="text-xs text-slate-400 mt-2">*Based on completed modules and assessments<\/p><\/div><div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-md"><h3 class="font-black text-lg text-[#0f2b5c] flex items-center gap-2 mb-4 pb-2 border-b border-slate-100"><i class="fa-solid fa-comment-medical"><\/i> Mentor's Feedback & Evaluation<\/h3><div class="p-4 bg-indigo-50/40 border-l-4 border-amber-500 rounded-r-xl"><p class="text-slate-700 text-sm italic leading-relaxed">${escapeHtml(feedback)}<\/p><\/div><\/div><div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-md"><h3 class="font-black text-lg text-[#0f2b5c] flex items-center gap-2 mb-4 pb-2 border-b border-slate-100"><i class="fa-regular fa-bell"><\/i> Batch Notice Board<\/h3><div class="p-4 bg-amber-50 border border-amber-200 rounded-xl"><span class="text-[10px] uppercase font-extrabold text-amber-700 tracking-wider">Latest Announcement<\/span><p class="text-sm font-semibold text-slate-700 mt-1">${escapeHtml(notice)}<\/p><\/div><\/div><\/div><div class="mt-10 text-center"><a href="https://wa.me/8801521243881" target="_blank" class="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 transition text-white px-8 py-3 rounded-2xl font-bold shadow-lg"><i class="fa-brands fa-whatsapp text-xl"><\/i> 24/7 Student Support Helpline<\/a><\/div><\/main><footer class="bg-slate-950 text-slate-500 text-xs text-center py-5 border-t mt-12"><p>© 2026 MEHEDI ACADEMIC CARE — Secure Student Dashboard Environment | Engineer-Led Excellence<\/p><\/footer><\/body><\/html>`;
-            
+
+<\/button><\/div><\/div><\/nav><main class="container mx-auto px-4 py-8 flex-1"><div class="bg-gradient-to-r from-[#0f2b5c] to-[#1e4a8a] rounded-3xl p-6 md:p-8 text-white shadow-xl mb-8 relative overflow-hidden"><div class="absolute right-0 bottom-0 opacity-10 text-9xl font-black select-none pointer-events-none">MAC<\/div><div class="relative z-10"><span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Academic Tracker Live<\/span><h1 class="text-2xl md:text-4xl font-black mt-3">Welcome Back, <span class="text-amber-400">${escapeHtml(name.split(' ')[0])}<\/span>!<\/h1><p class="text-indigo-100 text-sm md:text-base mt-1">"Logic over load." Track your module concept maps, assignment keys, and assessment records directly here.<\/p><\/div><\/div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center gap-4"><div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-id-card"><\/i><\/div><div><p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">MAC ID<\/p><h4 class="text-lg font-black text-slate-800 font-mono">${escapeHtml(macCode)}<\/h4><\/div><\/div><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center gap-4"><div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-regular fa-calendar-check"><\/i><\/div><div><p class="text-xs font-semibold text-slate-400 uppercase">Attendance<\/p><h4 class="text-2xl font-black text-slate-800">${escapeHtml(attendance)}<\/h4><\/div><\/div><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center gap-4"><div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-chart-line"><\/i><\/div><div><p class="text-xs font-semibold text-slate-400 uppercase">Latest Exam<\/p><h4 class="text-2xl font-black text-slate-800">${escapeHtml(examMark)}<\/h4><\/div><\/div><\/div><div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 mb-8"><div class="flex justify-between items-center mb-3"><h4 class="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2"><i class="fa-solid fa-chart-line text-[#0f2b5c]"><\/i> Syllabus Progress<\/h4><span class="text-sm font-black text-[#0f2b5c] bg-blue-50 px-3 py-1 rounded-full">${parseInt(progress) || 0}%<\/span><\/div><div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-blue-600 to-emerald-500 h-full rounded-full transition-all duration-1000" style="width: ${Math.min(100, Math.max(0, parseInt(progress) || 0))}%;"><\/div><\/div><\/div><div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-md"><h3 class="font-black text-lg text-[#0f2b5c] flex items-center gap-2 mb-4 pb-2 border-b border-slate-100"><i class="fa-solid fa-comment-medical"><\/i> Feedback<\/h3><div class="p-4 bg-indigo-50/40 border-l-4 border-amber-500 rounded-r-xl"><p class="text-slate-700 text-sm italic">${escapeHtml(feedback)}<\/p><\/div><\/div><div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-md"><h3 class="font-black text-lg text-[#0f2b5c] flex items-center gap-2 mb-4 pb-2 border-b border-slate-100"><i class="fa-regular fa-bell"><\/i> Notice<\/h3><div class="p-4 bg-amber-50 border border-amber-200 rounded-xl"><p class="text-sm font-semibold text-slate-700">${escapeHtml(notice)}<\/p><\/div><\/div><\/div><div class="mt-10 text-center"><a href="https://wa.me/8801521243881" target="_blank" class="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 transition text-white px-8 py-3 rounded-2xl font-bold shadow-lg"><i class="fa-brands fa-whatsapp text-xl"><\/i> Support<\/a><\/div><\/main><footer class="bg-slate-950 text-slate-500 text-xs text-center py-5 border-t mt-12"><p>© 2026 MEHEDI ACADEMIC CARE — Secure Dashboard<\/p><\/footer><\/body><\/html>`;
+        }
+        
+        // CRITICAL: This function is called from a user click event - browsers allow popups here
+        function openDashboardWindowFromClick(studentData) {
+            if (!studentData) return false;
+            const dashboardHTML = generateDashboardHTML(studentData);
             const blob = new Blob([dashboardHTML], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const newWindow = window.open(url, '_blank');
             if (newWindow) {
-                setTimeout(() => URL.revokeObjectURL(url), 800);
-            } 
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                return true;
+            }
+            return false;
         }
         
-        // ADMISSION SUBMISSION (POST to new script)
+        // ADMISSION SUBMISSION
         async function submitAdmission() {
             const name = document.getElementById('admitName').value.trim();
             const phone = document.getElementById('admitPhone').value.trim();
@@ -204,61 +213,96 @@
                 if(result.success) {
                     document.getElementById('admitFormContainer').classList.add('hidden');
                     document.getElementById('successViewAdmit').classList.remove('hidden');
-                    alert(`🎉 Registration Confirmed!\nYour MAC-Code: ${result.macCode}\nPlease use this code to login student Portal.`);
-                    
+                    alert(`🎉 Registration Confirmed!\nYour MAC-Code: ${result.macCode}\nUse this code to login.`);
                 } else {
                     alert("❌ Error: " + (result.error || "Something went wrong"));
                 }
             } catch (error) {
                 console.error(error);
-                alert("⚠️ Network error. Please check your connection and try again.");
+                alert("⚠️ Network error. Please check your connection.");
             } finally {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             }
         }
         
-        // VERIFY LOGIN CREDENTIALS & OPEN DASHBOARD IN NEW WINDOW (GET Request)
+        // VERIFY LOGIN & OPEN DASHBOARD - using user-click context for popup
         async function verifyAndOpenDashboardWindow() {
             const code = document.getElementById('studentMacCode').value.trim();
             const msgDiv = document.getElementById('loginMockMsg');
+            const btn = document.getElementById('accessDashboardBtn');
+            
             if(!code) { 
-                msgDiv.innerHTML = "🔐 Please enter your MAC-Code (e.g., MAC-1234)";
+                msgDiv.innerHTML = "🔐 Please enter your MAC-Code";
                 msgDiv.style.color = "#e67e22";
                 return; 
             }
-            msgDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying credentials with secure database...';
+            
+            // First, try to open an empty window synchronously (user gesture preserved)
+            // This is the key to bypass popup blockers - open a blank window first
+            const tempWindow = window.open('about:blank', '_blank');
+            if (!tempWindow) {
+                msgDiv.innerHTML = "⚠️ Popup blocked! Please allow popups for this site.";
+                msgDiv.style.color = "#ef4444";
+                return;
+            }
+            
+            msgDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying credentials...';
             msgDiv.style.color = "#1e3a8a";
+            btn.disabled = true;
+            
             try {
                 const response = await fetch(`${GOOGLE_SCRIPT_URL}?code=${encodeURIComponent(code)}`);
                 const result = await response.json();
+                
                 if (result.success && result.authorized) {
-                    msgDiv.innerHTML = '✅ Authorization successful! Launching dashboard in new window...';
+                    const studentData = {
+                        name: result.student.name,
+                        class: result.student.class,
+                        macCode: result.student.macCode,
+                        attendance: result.student.attendance || "92%",
+                        examMark: result.student.examMark || "85",
+                        progress: result.student.progress || "64",
+                        feedback: result.student.feedback || "Keep up the great work! Practice daily problems.",
+                        notice: result.student.notice || "New practice sheets available."
+                    };
+                    
+                    // Generate and write content to the pre-opened window
+                    const dashboardHTML = generateDashboardHTML(studentData);
+                    tempWindow.document.write(dashboardHTML);
+                    tempWindow.document.close();
+                    
+                    msgDiv.innerHTML = '✅ Dashboard opened successfully!';
                     msgDiv.style.color = "#10b981";
                     setTimeout(() => {
-                        msgDiv.innerHTML = '';
                         toggleModal('loginModal');
-                        openDashboardInNewWindow({
-                            name: result.student.name,
-                            class: result.student.class,
-                            macCode: result.student.macCode,
-                            attendance: result.student.attendance || "92%",
-                            examMark: result.student.examMark || "85",
-                            progress: result.student.progress || "64",
-                            feedback: result.student.feedback || "Keep up the great work! Practice daily problems.",
-                            notice: result.student.notice || "New practice sheets available in the resource section."
-                        });
-                    }, 600);
+                        msgDiv.innerHTML = '';
+                    }, 800);
                 } else {
-                    msgDiv.innerHTML = `❌ ${result.message || 'Invalid MAC-Code. Please check and try again.'}`;
+                    tempWindow.close(); // Close the blank window on error
+                    msgDiv.innerHTML = `❌ ${result.message || 'Invalid MAC-Code.'}`;
                     msgDiv.style.color = "#ef4444";
                 }
             } catch (error) {
+                tempWindow.close();
                 console.error("Login error:", error);
-                msgDiv.innerHTML = '⚠️ Unable to connect to verification server. Please contact support.';
+                msgDiv.innerHTML = '⚠️ Connection error. Please try again.';
                 msgDiv.style.color = "#ef4444";
+            } finally {
+                btn.disabled = false;
             }
         }
+        
+        // Attach event listener to the login button for proper user gesture
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('admitModal').classList.add('hidden');
+            document.getElementById('loginModal').classList.add('hidden');
+            
+            const loginBtn = document.getElementById('accessDashboardBtn');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', verifyAndOpenDashboardWindow);
+            }
+        });
         
         // Global click handler for modals & overlay
         window.onclick = function(event) {
@@ -268,11 +312,6 @@
                 if(modal) toggleModal(modal.id);
             }
         };
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('admitModal').classList.add('hidden');
-            document.getElementById('loginModal').classList.add('hidden');
-        });
     </script>
 </body>
 </html>
